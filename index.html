@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Anime Streaming ULTRA BOSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+<style>
+body{margin:0;background:#0f0f0f;color:#fff;font-family:sans-serif}
+.container{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:10px}
+.card{width:48%;background:#1a1a1a;border-radius:14px;overflow:hidden;cursor:pointer}
+.card img{width:100%;height:230px;object-fit:cover}
+.card h3{text-align:center}
+#videoContainer{max-width:100%!important;margin:0 auto}
+.video-fullscreen{position:relative;width:100vw;height:56.25vw;max-height:100vh;background:#000;overflow:hidden}
+@media(max-width:768px){.video-fullscreen{width:100vw;height:100vh}}
+.video-fullscreen iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.episode-btn{padding:6px 10px;background:#333;color:white;border:none;border-radius:6px;margin:2px;font-size:12px;cursor:pointer}
+.episode-btn.active{background:#0ff;color:black}
+#navToggle{margin:10px;padding:8px 12px;background:#222;color:#fff;border:none;border-radius:6px;cursor:pointer}
+#navToggle:hover{background:#0ff;color:#000}
+nav{background:#111;padding:10px;text-align:center;margin-top:5px;border-radius:6px}
+nav button{margin:0 5px;padding:8px 12px;background:#222;color:#fff;border:none;border-radius:6px;cursor:pointer}
+nav button:hover{background:#0ff;color:#000}
+h1,h2{text-align:center}
+@media(min-width:769px){.card img{display:none}}
+@media(max-width:768px){.card img{display:block}}
+</style>
+</head>
+<body>
+
+<button id="navToggle">Show Navigation</button>
+
+<div id="navMenu" style="display:none;">
+<h1>ULTRA BOSS Anime</h1>
+<nav>
+<button onclick="loadHome()">Home</button>
+<button onclick="loadAnime1()">Anime 1</button>
+<button onclick="loadAnime2()">Anime 2</button>
+<button onclick="loadAbout()">About</button>
+<button onclick="loadContact()">Contact</button>
+</nav>
+</div>
+
+<div id="content"></div>
+
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
+<script>
+const navToggle=document.getElementById('navToggle');
+const navMenu=document.getElementById('navMenu');
+navToggle.onclick=()=>{
+  navMenu.style.display = navMenu.style.display==='none'?'block':'none';
+};
+
+const animeData = {
+  naruto:{
+    title:"Naruto Shippuden",
+    image:"https://via.placeholder.com/300x160?text=Naruto",
+    total:500,
+    episodes:{
+      1:["a1E2Vm5JdjBlQUE="],
+ 
+      501:[]
+    }
+  },
+
+  onepiece:{
+    title:"One Piece",
+    image:"https://via.placeholder.com/300x160?text=One+Piece",
+    total:4,
+    episodes:{
+      1:["c2VLQ3A0LUZNb3M="],
+      2:[],
+      3:[],
+      4:[]
+    }
+  },
+
+  
+  
+  
+  nao:{   // ✅ PWEDENG KAHIT ANO KEY
+    title:"Naruto Shippuden 2",
+    image:"https://via.placeholder.com/300x160?text=Naruto+2",
+    total:10,
+    episodes:{
+      1:["a1E2Vm5JdjBlQUE="]
+    }
+  },
+
+  oepiece:{
+    title:"One Piece Special",
+    image:"https://via.placeholder.com/300x160?text=One+Piece+Special",
+    total:2,
+    episodes:{
+      1:["c2VLQ3A0LUZNb3M="]
+    }
+  }
+  
+  
+  
+
+
+};
+
+
+
+
+
+
+
+
+
+const anime2Data={
+naruto:{
+    title:"Naruto Shippuden",
+    image:"https://via.placeholder.com/300x160?text=Naruto",
+    total:217,
+    episodes:{
+      1:["a1E2Vm5JdjBlQUE="],
+      2:["ZnIxNlBFYld6MTg="],
+      3:[]
+    }
+  },
+
+  onepiece:{
+    title:"One Piece",
+    image:"https://via.placeholder.com/300x160?text=One+Piece",
+    total:4,
+    episodes:{
+      1:["c2VLQ3A0LUZNb3M="],
+      2:[],
+      3:[],
+      4:[]
+    }
+  },
+
+  
+  nao:{   // ✅ PWEDENG KAHIT ANO KEY
+    title:"Naruto Shippuden 2",
+    image:"https://via.placeholder.com/300x160?text=Naruto+2",
+    total:10,
+    episodes:{
+      1:["a1E2Vm5JdjBlQUE="]
+    }
+  },
+
+  oepiece:{
+    title:"One Piece Special",
+    image:"https://via.placeholder.com/300x160?text=One+Piece+Special",
+    total:2,
+    episodes:{
+      1:["c2VLQ3A0LUZNb3M="]
+    }
+  }
+  
+  
+  
+  
+
+
+
+
+
+};
+
+const content=document.getElementById("content");
+function loadHome(){content.innerHTML="<h1>Welcome to ULTRA BOSS Anime</h1>"}
+function loadAnime1(){loadAnimePage(animeData)}
+function loadAnime2(){loadAnimePage(anime2Data)}
+function loadAbout(){content.innerHTML="<h2>About ULTRA BOSS</h2>"}
+function loadContact(){content.innerHTML="<h2>Contact</h2>"}
+
+function loadAnimePage(data){
+let html='<div class="container">';
+for(const k in data){
+const a=data[k];
+html+=`<div class="card" onclick="openAnime('${k}','${data===animeData?'animeData':'anime2Data'}')">
+<img src="${a.image}"><h3>${a.title}</h3></div>`;
+}
+html+='</div>';
+content.innerHTML=html;
+}
+
+function openAnime(key,dataVar){
+const data=dataVar==='animeData'?animeData:anime2Data;
+const a=data[key];
+content.innerHTML=`<h2>${a.title}</h2>
+<div id="videoContainer"></div>
+<h1 id="episodeTitle" style="font-size:20px;margin:10px 0;text-align:center"></h1>
+<div id="episodeSection" class="container"></div>`;
+let eps="";
+for(let i=1;i<=a.total;i++){
+eps+=`<button class="episode-btn" onclick="playEpisode('${key}',${i},'${dataVar}')">${i}</button>`;
+}
+document.getElementById("episodeSection").innerHTML=eps;
+}
+
+/* AUTO PLAY + AUTO NEXT + LOGO BLUR (TOP ONLY) */
+function playEpisode(key,ep,dataVar,linkIndex=0){
+const data=dataVar==='animeData'?animeData:anime2Data;
+const anime=data[key];
+const links=anime.episodes[ep];
+const vc=document.getElementById("videoContainer");
+
+document.getElementById("episodeTitle").textContent=
+`${anime.title} – Episode ${ep}`;
+
+if(!links||links.length===0){
+vc.innerHTML="<h3 style='color:red;text-align:center;font-size:14px'>VIDEO NOT UPLOADED YET</h3>";
+}else{
+const id=atob(links[linkIndex]);
+const thumb=`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+
+vc.innerHTML=`
+<div style="position:relative;width:100%;height:100%;background:#000;overflow:hidden;">
+<div id="ytThumb" style="position:absolute;inset:0;background:url('${thumb}') center/cover no-repeat;z-index:5;transition:opacity 1s ease"></div>
+
+<!-- ✅ LOGO AREA LANG -->
+<div id="logoBlur" style="
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:60px;
+background:rgba(0,0,0,0.35);
+backdrop-filter:blur(6px);
+-webkit-backdrop-filter:blur(6px);
+z-index:6;
+pointer-events:none;
+transition:opacity 15s ease;
+"></div>
+
+<div class="plyr__video-embed" id="player" style="pointer-events:none;">
+<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1"
+allow="autoplay" allowfullscreen style="width:100%;height:100%;pointer-events:none;"></iframe>
+</div>
+</div>`;
+
+const player=new Plyr("#player",{controls:[],autoplay:true});
+
+/* ✅ REMOVE LOGO BLUR AFTER 20 SECONDS */
+setTimeout(()=>{
+  const t=document.getElementById("ytThumb");
+  const b=document.getElementById("logoBlur");
+  if(t)t.style.opacity="0";
+  if(b)b.style.opacity="0";
+},2000);
+
+player.on('ended',()=>{
+  if(ep+1<=anime.total) playEpisode(key,ep+1,dataVar);
+});
+}
+
+document.querySelectorAll(".episode-btn").forEach(b=>b.classList.remove("active"));
+const btns=document.querySelectorAll(".episode-btn");
+if(btns[ep-1])btns[ep-1].classList.add("active");
+}
+
+/* Anti-tamper (ORIGINAL MO) */
+function superAlertBoss(){alert("🚨 ALERT BOSS: Bawal yan! 🛑 No right-click, inspect, view source, or download allowed!");}
+document.addEventListener("contextmenu",e=>{e.preventDefault();superAlertBoss();});
+document.addEventListener("dblclick",e=>{if(e.target.tagName==="IMG"||e.target.tagName==="IFRAME"){e.preventDefault();superAlertBoss();}});
+document.addEventListener("keydown",e=>{
+if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&["I","C"].includes(e.key.toUpperCase()))||(e.ctrlKey&&["U","S"].includes(e.key.toUpperCase()))){
+e.preventDefault();superAlertBoss();}
+});
+setInterval(()=>{
+if(window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160){
+document.body.innerHTML="<h1 style='color:red;text-align:center;margin-top:40vh'>🚨 ALERT BOSS: DevTools detected! 🛑</h1>";
+}},1000);
+document.addEventListener("selectstart",e=>e.preventDefault());
+document.addEventListener("dragstart",e=>e.preventDefault());
+
+loadHome();
+</script>
+</body>
+</html>
